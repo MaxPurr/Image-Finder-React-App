@@ -72,27 +72,27 @@ export class App extends Component {
   }
 
   async componentDidUpdate() {
-    try {
-      const { totalHits, hits } = await api.request(
-        this.state.searchQuery,
-        this.state.page
-      );
-      if (totalHits === 0) {
-        this.setState({
-          error: new Error(
-            'There are no images matching your search query. Please try again.'
-          ),
-        });
-      } else {
-        const images = hits.map(hit => {
-          return {
-            webformatURL: hit.webformatURL,
-            largeImageURL: hit.largeImageURL,
-            tags: hit.tags,
-            id: hit.id,
-          };
-        });
-        if (this.state.isLoading) {
+    if (this.state.isLoading) {
+      try {
+        const { totalHits, hits } = await api.request(
+          this.state.searchQuery,
+          this.state.page
+        );
+        if (totalHits === 0) {
+          this.setState({
+            error: new Error(
+              'There are no images matching your search query. Please try again.'
+            ),
+          });
+        } else {
+          const images = hits.map(hit => {
+            return {
+              webformatURL: hit.webformatURL,
+              largeImageURL: hit.largeImageURL,
+              tags: hit.tags,
+              id: hit.id,
+            };
+          });
           this.setState(prevState => {
             return {
               images: prevState.images.concat(images),
@@ -101,11 +101,11 @@ export class App extends Component {
             };
           });
         }
+      } catch (error) {
+        this.setState({ error });
+      } finally {
+        this.setState({ isLoading: false });
       }
-    } catch (error) {
-      this.setState({ error });
-    } finally {
-      if (this.state.isLoading) this.setState({ isLoading: false });
     }
   }
 
