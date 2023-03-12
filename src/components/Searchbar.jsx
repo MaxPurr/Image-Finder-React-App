@@ -1,0 +1,36 @@
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import css from '../css/Searchbar.module.css';
+
+export class Searchbar extends Component {
+  static propTypes = {
+    onSubmit: PropTypes.func.isRequired,
+  };
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      onSubmit: this.props.onSubmit,
+    };
+  }
+
+  render() {
+    return (
+      <header className={css.Searchbar}>
+        <form onSubmit={this.state.onSubmit} className={css.SearchForm}>
+          <button type="submit" className={css.SearchForm_button}>
+            <span className={css.SearchForm_button}>Search</span>
+          </button>
+          <input
+            name="search"
+            className={css.SearchForm_input}
+            type="text"
+            autoComplete="off"
+            autoFocus
+            placeholder="Search images and photos"
+          />
+        </form>
+      </header>
+    );
+  }
+}
