@@ -28,10 +28,10 @@ export class App extends Component {
   }
 
   openModal(evt) {
-    const id = evt.currentTarget.getAttribute('for');
+    const id = Number.parseInt(evt.currentTarget.getAttribute('for'));
     let modalImage;
     for (const image of this.state.images) {
-      if (image.id == id) {
+      if (image.id === id) {
         modalImage = image.largeImageURL;
       }
     }

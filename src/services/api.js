@@ -15,6 +15,8 @@ export const request = async (searchQuery, page) => {
   return response.data;
 };
 
-export default {
-  request,
+const exportedObject = {
+    request,
 };
+
+export default exportedObject;
